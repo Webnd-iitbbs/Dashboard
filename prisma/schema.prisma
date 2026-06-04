@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+
+  name      String
+  email     String   @unique
+  password  String?
+
+  image     String?
+
+  isMentor  Boolean  @default(false)
+  isActive  Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  mentorLinks     MentorStudent[] @relation("Mentor")
+  studentLinks    MentorStudent[] @relation("Student")
+
+  mentorRequests  MentorRequest[]
+
+  createdTasks    Task[]           @relation("TaskCreator")
+  assignedTasks   TaskAssignment[] @relation("AssignedStudent")
+}
+
+model MentorRequest {
+  id        String   @id @default(cuid())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  reason    String?
+
+  status    MentorRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+}
+
+model MentorStudent {
+  id        String   @id @default(cuid())
+
+  mentorId  String
+  studentId String
+
+  mentor    User @relation("Mentor", fields: [mentorId], references: [id])
+  student   User @relation("Student", fields: [studentId], references: [id])
+
+  isActive  Boolean @default(true)
+
+  createdAt DateTime @default(now())
+}
+enum MentorRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Task {
+  id          String   @id @default(cuid())
+
+  title       String
+  description String
+
+  points      Int      @default(0)
+
+  deadline    DateTime?
+
+  mentorId    String
+  mentor      User @relation("TaskCreator", fields: [mentorId], references: [id])
+
+  createdAt   DateTime @default(now())
+
+  assignments TaskAssignment[]
+}
+
+model TaskAssignment {
+  id         String   @id @default(cuid())
+
+  taskId     String
+  studentId  String
+
+  task        Task @relation(fields: [taskId], references: [id])
+
+  student     User @relation("AssignedStudent", fields: [studentId], references: [id])
+
+  status     TaskStatus @default(PENDING)
+
+  assignedAt DateTime @default(now())
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  SUBMITTED
+  COMPLETED
+}
+

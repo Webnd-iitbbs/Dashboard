@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import SplashCursor from "@/components/animations/SplashCursor";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import "./global.css";
 
 
 // ─── Logo SVG extracted from brand identity (yellow play/forward arrow mark) ───
@@ -407,7 +409,8 @@ export default function WebnDLanding() {
       >
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <LogoMark size={32} />
+          {/* <LogoMark size={32} /> */}
+          <Image src="/logo.png" alt="logo" width={30} height={30}/>
           <span
             className="display-font"
             style={{ fontSize: "16px", fontWeight: 700, color: "#F5C518", letterSpacing: "0.04em" }}

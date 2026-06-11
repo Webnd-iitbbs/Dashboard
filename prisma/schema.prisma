@@ -8,92 +8,67 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-
-  name      String
-  email     String   @unique
-  password  String?
-
-  image     String?
-
-  isMentor  Boolean  @default(false)
-  isActive  Boolean  @default(true)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  mentorLinks     MentorStudent[] @relation("Mentor")
-  studentLinks    MentorStudent[] @relation("Student")
-
-  mentorRequests  MentorRequest[]
-
-  createdTasks    Task[]           @relation("TaskCreator")
-  assignedTasks   TaskAssignment[] @relation("AssignedStudent")
+  id             String           @id @default(cuid())
+  name           String
+  email          String           @unique
+  password       String?
+  isMentor       Boolean          @default(false)
+  image          String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  isActive       Boolean          @default(true)
+  mentorRequests MentorRequest[]
+  mentorLinks    MentorStudent[]  @relation("Mentor")
+  studentLinks   MentorStudent[]  @relation("Student")
+  createdTasks   Task[]           @relation("TaskCreator")
+  assignedTasks  TaskAssignment[] @relation("AssignedStudent")
 }
 
 model MentorRequest {
-  id        String   @id @default(cuid())
-
+  id        String              @id @default(cuid())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
-
   reason    String?
-
   status    MentorRequestStatus @default(PENDING)
-
-  createdAt DateTime @default(now())
+  createdAt DateTime            @default(now())
+  user      User                @relation(fields: [userId], references: [id])
 }
 
 model MentorStudent {
   id        String   @id @default(cuid())
-
   mentorId  String
   studentId String
-
-  mentor    User @relation("Mentor", fields: [mentorId], references: [id])
-  student   User @relation("Student", fields: [studentId], references: [id])
-
-  isActive  Boolean @default(true)
-
   createdAt DateTime @default(now())
-}
-enum MentorRequestStatus {
-  PENDING
-  APPROVED
-  REJECTED
+  isActive  Boolean  @default(true)
+  mentor    User     @relation("Mentor", fields: [mentorId], references: [id])
+  student   User     @relation("Student", fields: [studentId], references: [id])
 }
 
 model Task {
-  id          String   @id @default(cuid())
-
+  id          String           @id @default(cuid())
   title       String
   description String
-
-  points      Int      @default(0)
-
+  points      Int              @default(0)
   deadline    DateTime?
-
   mentorId    String
-  mentor      User @relation("TaskCreator", fields: [mentorId], references: [id])
-
-  createdAt   DateTime @default(now())
-
+  createdAt   DateTime         @default(now())
+  mentor      User             @relation("TaskCreator", fields: [mentorId], references: [id])
   assignments TaskAssignment[]
 }
 
 model TaskAssignment {
-  id         String   @id @default(cuid())
-
+  id         String     @id @default(cuid())
   taskId     String
   studentId  String
-
-  task        Task @relation(fields: [taskId], references: [id])
-
-  student     User @relation("AssignedStudent", fields: [studentId], references: [id])
-
   status     TaskStatus @default(PENDING)
+  assignedAt DateTime   @default(now())
+  student    User       @relation("AssignedStudent", fields: [studentId], references: [id])
+  task       Task       @relation(fields: [taskId], references: [id])
+}
 
-  assignedAt DateTime @default(now())
+enum MentorRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum TaskStatus {
@@ -102,4 +77,3 @@ enum TaskStatus {
   SUBMITTED
   COMPLETED
 }
-

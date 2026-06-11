@@ -6,7 +6,7 @@ export default async function DashboardPage() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <p>Welcome {user.name}</p>
+      <h1>Hello {user.name}</h1>
     </div>
   );
 }

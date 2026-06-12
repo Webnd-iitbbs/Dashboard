@@ -8,10 +8,10 @@ import Image from "next/image";
 
 const Dashboard = () => {
   return (
-    <div className="relative flex-1 overflow-hidden">
+    <div className="relative h-screen flex-1 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">
         <div
-    className="
+          className="
       absolute
       left-1/2
       top-1/2
@@ -24,9 +24,9 @@ const Dashboard = () => {
       opacity-[0.08]
       blur-[180px]
     "
-  />
-  <div
-    className="
+        />
+        <div
+          className="
       absolute
       left-1/2
       top-1/2
@@ -39,7 +39,7 @@ const Dashboard = () => {
       opacity-[0.12]
       blur-[100px]
     "
-  />
+        />
         <Image
           src="/logo.png"
           alt=""
@@ -53,7 +53,7 @@ const Dashboard = () => {
       "
         />
       </div>
-      <div className="h-screen w-screen p-6">
+      <div className="mobile-page lg:h-screen w-full p-6">
         <div className="relative h-full w-full border-t border-l border-r rounded-t-2xl border-t-(--border) border-l-(--border) border-r-(--border) overflow-y-auto">
           <div className="flex justify-start p-6">
             <div className="h-16 w-16 rounded-full bg-amber-400"></div>
@@ -103,18 +103,19 @@ const Dashboard = () => {
           <div className="p-4 w-full">
             <ProgressBar total={18} completed={12} />
           </div>
-            <div className="h-4 relative bottom-0"/>
-          <div className="fixed bottom-0 left-0 w-full">
-            <NewsRail
-              items={[
-                "You got a new task: Landing Page Redesign",
-                "Rajesh secured #3 on the leaderboard",
-                "Kushal earned the React Slayer medal",
-                "Competition UI Sprint begins tomorrow",
-                "Mentor Toshan Bhaiya reviewed your submission",
-              ]}
-            />
-          </div>
+          <div className="h-4 relative bottom-0" />
+
+        </div>
+        <div className="absolute bottom-0 left-0 w-full">
+          <NewsRail
+            items={[
+              "You got a new task: Landing Page Redesign",
+              "Rajesh secured #3 on the leaderboard",
+              "Kushal earned the React Slayer medal",
+              "Competition UI Sprint begins tomorrow",
+              "Mentor Toshan Bhaiya reviewed your submission",
+            ]}
+          />
         </div>
       </div>
     </div>

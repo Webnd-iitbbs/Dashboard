@@ -75,7 +75,7 @@ export default function TaskCard({
         </div>
 
         {/* Tech Stack */}
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2 lg:hidden">
           {techStack.slice(0, 4).map((tech) => (
             <span
               key={tech}

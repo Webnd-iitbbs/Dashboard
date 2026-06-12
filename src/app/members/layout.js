@@ -4,40 +4,35 @@ import MentorSidebar from "@/components/mentor/layout/MentorSidebar"
 import MobileSidebar from "@/components/mentor/layout/MobileSidebar"
 import { Menu } from "lucide-react"
 import { useState } from "react"
+import { FileCheck, LayoutDashboard, Trophy, User } from "lucide-react"
 import { FaTasks } from "react-icons/fa"
-import { FileCheck, LayoutDashboard, Trophy, User, Users } from "lucide-react"
 
-import "./mentor.css"
-
+import "../mentor/mentor.css"
 const links = [
     {
         title: "Dashboard",
-        href: "/mentor/dashboard",
+        href: "/members/dashboard",
         icon: LayoutDashboard
     }, {
-        title: "Mentees",
-        href: "/mentor/mentees",
-        icon: Users
-    }, {
-        title:"Tasks",
-        href:"/mentor/tasks",
+        title:"My Tasks",
+        href:"/members/tasks",
         icon: FaTasks
     },
     {
         title: "Leaderboard",
-        href: "/mentor/leaderboard",
+        href: "/members/leaderboard",
         icon: Trophy
     }, {
-        title: "Submissions",
-        href: "/mentor/submissions",
+        title: "Resources",
+        href: "/members/resources",
         icon: FileCheck
     }, {
         title: "Profile",
-        href: "/mentor/profile",
+        href: "/members/profile", 
         icon: User
     }
 ]
-// console.log(links);
+
 const MentorLayout = ({ children }) => {
     const [open, setOpen] = useState(false)
     return (

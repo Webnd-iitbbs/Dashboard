@@ -30,7 +30,7 @@ export default function NewsRail({
       onMouseLeave={() => setPaused(false)}
       className="
         relative overflow-hidden
-        rounded-xl
+        rounded-t-xl
         border border-[var(--wd-gray)]
         bg-[var(--wd-surface)]
         px-4 py-3

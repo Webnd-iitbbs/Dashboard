@@ -28,22 +28,11 @@ export default function NewsRail({
     <div
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="
-        relative overflow-hidden
-        rounded-t-xl
-        border border-[var(--wd-gray)]
-        bg-[var(--wd-surface)]
-        px-4 py-3
-        shadow-lg shadow-black/20
-      "
+      className="relative overflow-hidden rounded-t-xl border border-[var(--wd-gray)] bg-[var(--wd-surface)] px-4 py-3 shadow-lg shadow-black/20"
     >
       {/* Glow */}
       <div
-        className="
-          absolute inset-y-0 left-0 w-24
-          bg-[var(--wd-yellow)]/5
-          blur-2xl
-        "
+        className="absolute inset-y-0 left-0 w-24 bg-[var(--wd-yellow)]/5 blur-2xl"
       />
 
       <div className="relative flex items-center gap-3">
@@ -51,20 +40,11 @@ export default function NewsRail({
         <div className="relative">
           <div className="h-2.5 w-2.5 rounded-full bg-[var(--wd-yellow)]" />
           <div
-            className="
-              absolute inset-0
-              animate-ping
-              rounded-full
-              bg-[var(--wd-yellow)]
-              opacity-50
-            "
+            className="absolute inset-0 animate-ping rounded-full bg-[var(--wd-yellow)] opacity-50"
           />
         </div>
 
-        <BellRing
-          size={16}
-          className="text-[var(--wd-yellow)]"
-        />
+        <BellRing size={16} className="text-[var(--wd-yellow)]" />
 
         <span className="text-xs uppercase tracking-wider text-[var(--wd-muted)]">
           Live
@@ -83,10 +63,9 @@ export default function NewsRail({
                   flex items-center
                   text-xs lg:text-sm text-[var(--wd-white)]
                   transition-all duration-700 ease-out
-                  ${
-                    active
-                      ? "translate-y-0 opacity-100"
-                      : i < index
+                  ${active
+                    ? "translate-y-0 opacity-100"
+                    : i < index
                       ? "-translate-y-8 opacity-0"
                       : "translate-y-8 opacity-0"
                   }

@@ -79,17 +79,7 @@ export default function TaskCard({
           {techStack.slice(0, 4).map((tech) => (
             <span
               key={tech}
-              className="
-                rounded-full
-                border
-                border-[#F5C518]/30
-                bg-[#F5C518]/10
-                px-2 py-1
-                text-[10px]
-                font-medium
-                text-[#F5C518]
-                md:text-xs
-              "
+              className="rounded-full border border-[#F5C518]/30 bg-[#F5C518]/10 px-2 py-1 text-[10px] font-medium text-[#F5C518] md:text-xs"
             >
               {tech}
             </span>

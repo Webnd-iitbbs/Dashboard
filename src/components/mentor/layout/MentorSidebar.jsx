@@ -1,12 +1,12 @@
 "use client"
 
-import {LogOut} from "lucide-react"
+import {LogOut, Settings} from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 
 
-const MentorSidebar = ({links}) => {
+const MentorSidebar = ({links, position}) => {
     console.log(links);
     const pathName = usePathname();
     return (
@@ -14,7 +14,7 @@ const MentorSidebar = ({links}) => {
             <div>
                 <div className="px-6 py-8 border-b border-[#2A2A2A]">
                     <h1 className="text-[#F5C518] text-2xl font-bold"> WebnD </h1>
-                    <p className="text-[#888888] text-xs "> Mentor Panel</p>
+                    <p className="text-[#888888] text-xs "> {position} Panel</p>
                 </div>
                 <div className="p-4 space-y-2">
                     {links?.map((item) => {
@@ -32,7 +32,11 @@ const MentorSidebar = ({links}) => {
                     })}
                 </div>
             </div>
-            <div className="p-4 border-t border-[#2A2A2A]">
+            <div className="p-4 border-t border-[#2A2A2A] flex flex-col gap-4">
+                <Link className="flex items-center gap-3 text-(--wd-muted)" href="/settings">
+                    <Settings size={18} />
+                    Settings
+                </Link>
                 <button className="flex items-center gap-3 text-red-400">
                     <LogOut size={18} />
                     Logout

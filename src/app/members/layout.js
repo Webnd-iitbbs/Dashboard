@@ -43,9 +43,9 @@ const MentorLayout = ({ children }) => {
                     <Menu className="text-white" />
                 </button>
             </div>
-            <MobileSidebar open={open} setOpen={setOpen}><MentorSidebar links={links}/></MobileSidebar>
+            <MobileSidebar open={open} setOpen={setOpen}><MentorSidebar links={links} position="Member"/></MobileSidebar>
             <div className="flex">
-                <aside className="hidden lg:block w-[280px] border-r border-[#2A2A2A] min-h-screen bg-[#0D0D0D]"><MentorSidebar links={links}/></aside>
+                <aside className="hidden lg:block w-[280px] border-r border-[#2A2A2A] min-h-screen bg-[#0D0D0D]"><MentorSidebar links={links} position="Member"/></aside>
                 <main className="flex-1">{children}</main>
             </div>
         </div>

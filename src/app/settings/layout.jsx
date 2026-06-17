@@ -6,7 +6,7 @@ export default function SettingsLayout({children,}) {
       <div className="h-screen bg-[#0D0D0D] text-white flex-shrink-0">
         <SettingsSidebar />
       </div>
-      <main className="flex-1 h-screen overflow-y-auto p-8">
+      <main className="flex-1 h-screen overflow-y-auto p-8 wd-scroll">
         {children}
       </main>
 

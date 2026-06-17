@@ -58,13 +58,7 @@ export default function StatCard({
 
         {Icon && (
           <div
-            className="
-              flex h-12 w-12 items-center justify-center
-              rounded-xl
-              border border-[var(--wd-yellow)]/20
-              bg-[var(--wd-yellow)]/10
-              backdrop-blur
-            "
+            className="flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--wd-yellow)]/20 bg-[var(--wd-yellow)]/10 backdrop-blur"
           >
             <Icon
               size={22}
@@ -76,11 +70,7 @@ export default function StatCard({
 
       {trend && (
         <div
-          className="
-            mt-4 flex items-center gap-1
-            text-xs font-medium
-            text-[var(--wd-yellow)]
-          "
+          className="mt-4 flex items-center gap-1 text-xs font-medium text-[var(--wd-yellow)]"
         >
           <ArrowUpRight size={14} />
           {trend}
@@ -89,13 +79,7 @@ export default function StatCard({
 
       {/* bottom shine */}
       <div
-        className="
-          absolute bottom-0 left-0 h-[1px] w-full
-          bg-gradient-to-r
-          from-transparent
-          via-[var(--wd-yellow)]/40
-          to-transparent
-        "
+        className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-[var(--wd-yellow)]/40 to-transparent"
       />
     </div>
   );

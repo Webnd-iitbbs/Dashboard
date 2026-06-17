@@ -70,15 +70,7 @@ export default function TaskDesc() {
           {task.techStack.map((tech) => (
             <span
               key={tech}
-              className="
-                rounded-full
-                border
-                border-[#F5C518]/30
-                bg-[#F5C518]/10
-                px-3 py-1
-                text-xs
-                text-[#F5C518]
-              "
+              className="rounded-full border border-[#F5C518]/30 bg-[#F5C518]/10 px-3 py-1 text-xs text-[#F5C518]"
             >
               {tech}
             </span>
@@ -180,18 +172,7 @@ export default function TaskDesc() {
             <textarea
               rows={5}
               placeholder="Anything you'd like your mentor to know..."
-              className="
-                w-full
-                rounded-lg
-                border
-                border-[#2A2A2A]
-                bg-[#111111]
-                p-3
-                text-sm
-                text-[#F5F5F5]
-                outline-none
-                resize-none
-              "
+              className="w-full rounded-lg border border-[#2A2A2A] bg-[#111111] p-3 text-sm text-[#F5F5F5] outline-none resize-none"
             />
 
             <div className="mt-5 flex justify-end">

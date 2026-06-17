@@ -26,31 +26,15 @@ export default function ProgressBar({
       )}
 
       <div
-        className="
-          relative h-3 overflow-hidden rounded-full
-          border border-[var(--wd-gray)]
-          bg-[var(--wd-charcoal)]
-        "
+        className="relative h-3 overflow-hidden rounded-full border border-[var(--wd-gray)] bg-[var(--wd-charcoal)]"
       >
         <div
-          className="
-            absolute inset-y-0 left-0
-            rounded-full
-            bg-gradient-to-r
-            from-[var(--wd-yellow-dark)]
-            via-[var(--wd-yellow)]
-            to-[var(--wd-yellow-light)]
-            transition-all duration-700 ease-out
-          "
+          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[var(--wd-yellow-dark)] via-[var(--wd-yellow)] to-[var(--wd-yellow-light)] transition-all duration-700 ease-out"
           style={{ width: `${percentage}%` }}
         >
           {/* Shimmer */}
           <div
-            className="
-              absolute inset-0
-              bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.35),transparent)]
-              animate-[shimmer_2s_linear_infinite]
-            "
+            className="absolute inset-0 bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.3 transparent)] animate-[shimmer_2s_linear_infinite]"
           />
         </div>
       </div>

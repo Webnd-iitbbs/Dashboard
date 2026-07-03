@@ -1,15 +1,15 @@
 import { requireAuth } from "@/features/auth/lib/auth";
-import MentorSubmissionsPage from "@/pages/mentor/MentorSubmissionsPage";
+import MentorSubmissionsPage from "@/views/mentor/MentorSubmissionsPage";
 import { isAdmin, isMentor } from "@/features/auth/lib/permissions";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const user = await requireAuth();
 
-  if(isAdmin(user)){
+  if(user.role === "ADMIN"){
     redirect("/dashboard");
   }
-  else if(isMentor(user)){
+  else if(user.role === "MENTOR"){
     return <MentorSubmissionsPage/>
   }
   else{

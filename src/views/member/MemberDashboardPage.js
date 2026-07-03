@@ -1,12 +1,13 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Trophy, Star, Target, Users } from "lucide-react";
 import StatCard from "@/components/members/dashboard/StatCard";
 import NewsRail from "@/components/members/dashboard/NewsRail";
 import ProgressBar from "@/components/members/dashboard/ProgressBar";
 import Image from "next/image";
 
-const MemberDashboardPage = ({user}) => {
+const MemberDashboardPage = ({user, data}) => {
+  
   return (
     <div className="relative h-screen flex-1 overflow-hidden">
       <div className="absolute inset-0 flex items-center justify-center">
@@ -29,7 +30,7 @@ const MemberDashboardPage = ({user}) => {
                 {user?.name || "Rajesh Mohanty"}
               </h1>
               <h2 className="text-(--wd-muted) font-semibold text-xl">
-                Dev Lead
+                {user?.role || "Member"}
               </h2>
             </div>
           </div>
@@ -37,7 +38,7 @@ const MemberDashboardPage = ({user}) => {
             <StatCard
               tilt="left"
               title="Total XP"
-              value="4,820"
+              value={user?.xp || "NA"}
               subtitle="+340 this week"
               trend="7.8%"
               icon={Star}
@@ -54,7 +55,7 @@ const MemberDashboardPage = ({user}) => {
             <StatCard
               tilt="left"
               title="Pending Tasks"
-              value="6"
+              value={data?.assignedTasks?.length || 0}
               subtitle="2 due this week"
               icon={Target}
             />
@@ -62,7 +63,7 @@ const MemberDashboardPage = ({user}) => {
             <StatCard
               tilt="right"
               title="Mentor"
-              value="Toshan Mondal"
+              value={data?.studentLinks?.[0]?.mentor?.name || "Toshan Mondal"}
               subtitle="Assigned Mentor"
               icon={Users}
             />

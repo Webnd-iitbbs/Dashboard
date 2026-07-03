@@ -8,29 +8,39 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(cuid())
-  name           String
-  email          String           @unique
-  password       String?
-  isMentor       Boolean          @default(false)
-  image          String?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  isActive       Boolean          @default(true)
-  mentorRequests MentorRequest[]
-  mentorLinks    MentorStudent[]  @relation("Mentor")
-  studentLinks   MentorStudent[]  @relation("Student")
-  createdTasks   Task[]           @relation("TaskCreator")
-  assignedTasks  TaskAssignment[] @relation("AssignedStudent")
+  id                     String           @id @default(cuid())
+  name                   String
+  email                  String           @unique
+  password               String?
+  image                  String?
+  createdAt              DateTime         @default(now())
+  updatedAt              DateTime         @updatedAt
+  isActive               Boolean          @default(true)
+  role                   UserRole         @default(MEMBER)
+  xp                     Int              @default(0)
+  contributions          Contribution[]   @relation("Contributor")
+  reviewedContributions  Contribution[]   @relation("ContributionReviewer")
+  reviewedMentorRequests MentorRequest[]  @relation("MentorApprovals")
+  mentorRequests         MentorRequest[]
+  mentorLinks            MentorStudent[]  @relation("Mentor")
+  studentLinks           MentorStudent[]  @relation("Student")
+  createdTasks           Task[]           @relation("TaskCreator")
+  assignedTasks          TaskAssignment[] @relation("AssignedStudent")
+  reviewedSubmissions    TaskSubmission[] @relation("SubmissionReviewer")
 }
 
 model MentorRequest {
-  id        String              @id @default(cuid())
-  userId    String
-  reason    String?
-  status    MentorRequestStatus @default(PENDING)
-  createdAt DateTime            @default(now())
-  user      User                @relation(fields: [userId], references: [id])
+  id               String              @id @default(cuid())
+  userId           String
+  reason           String
+  status           MentorRequestStatus @default(PENDING)
+  createdAt        DateTime            @default(now())
+  currentKnowledge String
+  reviewedAt       DateTime?
+  reviewedById     String?
+  updatedAt        DateTime            @updatedAt
+  reviewedBy       User?               @relation("MentorApprovals", fields: [reviewedById], references: [id])
+  user             User                @relation(fields: [userId], references: [id])
 }
 
 model MentorStudent {
@@ -41,28 +51,77 @@ model MentorStudent {
   isActive  Boolean  @default(true)
   mentor    User     @relation("Mentor", fields: [mentorId], references: [id])
   student   User     @relation("Student", fields: [studentId], references: [id])
+
+  @@unique([mentorId, studentId])
 }
 
 model Task {
-  id          String           @id @default(cuid())
-  title       String
-  description String
-  points      Int              @default(0)
-  deadline    DateTime?
-  mentorId    String
-  createdAt   DateTime         @default(now())
-  mentor      User             @relation("TaskCreator", fields: [mentorId], references: [id])
-  assignments TaskAssignment[]
+  id           String           @id @default(cuid())
+  title        String
+  description  String
+  deadline     DateTime
+  createdAt    DateTime         @default(now())
+  creatorId    String
+  referenceUrl String?
+  techStack    String?
+  updatedAt    DateTime         @updatedAt
+  xpReward     Int
+  creator      User             @relation("TaskCreator", fields: [creatorId], references: [id])
+  assignments  TaskAssignment[]
 }
 
 model TaskAssignment {
-  id         String     @id @default(cuid())
-  taskId     String
-  studentId  String
-  status     TaskStatus @default(PENDING)
-  assignedAt DateTime   @default(now())
-  student    User       @relation("AssignedStudent", fields: [studentId], references: [id])
-  task       Task       @relation(fields: [taskId], references: [id])
+  id          String          @id @default(cuid())
+  taskId      String
+  studentId   String
+  status      TaskStatus      @default(PENDING)
+  assignedAt  DateTime        @default(now())
+  completedAt DateTime?
+  reviewedAt  DateTime?
+  submittedAt DateTime?
+  student     User            @relation("AssignedStudent", fields: [studentId], references: [id])
+  task        Task            @relation(fields: [taskId], references: [id])
+  submission  TaskSubmission?
+
+  @@unique([taskId, studentId])
+}
+
+model TaskSubmission {
+  id           String         @id @default(cuid())
+  assignmentId String         @unique
+  githubUrl    String
+  deployedLink String?
+  message      String?
+  feedback     String?
+  score        Int?
+  reviewedById String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  assignment   TaskAssignment @relation(fields: [assignmentId], references: [id])
+  reviewedBy   User?          @relation("SubmissionReviewer", fields: [reviewedById], references: [id])
+}
+
+model Contribution {
+  id            String             @id @default(cuid())
+  title         String
+  description   String
+  type          ContributionType
+  codeContent   String?
+  fileUrl       String?
+  contributorId String
+  status        ContributionStatus @default(PENDING)
+  reviewedById  String?
+  reviewedAt    DateTime?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  contributor   User               @relation("Contributor", fields: [contributorId], references: [id])
+  reviewedBy    User?              @relation("ContributionReviewer", fields: [reviewedById], references: [id])
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
+  MENTOR
 }
 
 enum MentorRequestStatus {
@@ -73,7 +132,19 @@ enum MentorRequestStatus {
 
 enum TaskStatus {
   PENDING
-  IN_PROGRESS
   SUBMITTED
+  UNDER_REVIEW
   COMPLETED
+  REJECTED
+}
+
+enum ContributionType {
+  CODE
+  FILE
+}
+
+enum ContributionStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

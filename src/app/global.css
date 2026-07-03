@@ -491,6 +491,7 @@ button:disabled {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -503,6 +504,7 @@ button:disabled {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -514,6 +516,7 @@ button:disabled {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -524,6 +527,7 @@ button:disabled {
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -531,10 +535,12 @@ button:disabled {
 
 /* Pulse Glow (for rank badges) */
 @keyframes pulseGlow {
+
   0%,
   100% {
     box-shadow: 0 0 8px rgba(245, 197, 24, 0.2), inset 0 0 8px rgba(245, 197, 24, 0.1);
   }
+
   50% {
     box-shadow: 0 0 16px rgba(245, 197, 24, 0.4), inset 0 0 12px rgba(245, 197, 24, 0.2);
   }
@@ -542,22 +548,28 @@ button:disabled {
 
 /* Bell Ring (notification) */
 @keyframes bellRing {
+
   0%,
   100% {
     transform: rotate(0deg);
   }
+
   15% {
     transform: rotate(-8deg);
   }
+
   30% {
     transform: rotate(8deg);
   }
+
   45% {
     transform: rotate(-6deg);
   }
+
   60% {
     transform: rotate(4deg);
   }
+
   75% {
     transform: rotate(-2deg);
   }
@@ -583,9 +595,11 @@ button:disabled {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(0.96);
   }
+
   100% {
     transform: scale(1);
   }
@@ -596,6 +610,7 @@ button:disabled {
     opacity: 0;
     transform: translateY(8px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -620,12 +635,10 @@ button:disabled {
 }
 
 .animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--wd-yellow) 0%,
-    rgba(245, 197, 24, 0.3) 50%,
-    var(--wd-yellow) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--wd-yellow) 0%,
+      rgba(245, 197, 24, 0.3) 50%,
+      var(--wd-yellow) 100%);
   background-size: 1000px 100%;
   animation: shimmerSlide 2s infinite;
 }
@@ -650,21 +663,27 @@ button:disabled {
 .stagger-item:nth-child(1) {
   animation-delay: 0ms;
 }
+
 .stagger-item:nth-child(2) {
   animation-delay: 60ms;
 }
+
 .stagger-item:nth-child(3) {
   animation-delay: 120ms;
 }
+
 .stagger-item:nth-child(4) {
   animation-delay: 180ms;
 }
+
 .stagger-item:nth-child(5) {
   animation-delay: 240ms;
 }
+
 .stagger-item:nth-child(6) {
   animation-delay: 300ms;
 }
+
 .stagger-item:nth-child(n + 7) {
   animation-delay: calc(60ms * (n - 1));
 }

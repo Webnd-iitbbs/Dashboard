@@ -1,18 +1,38 @@
 import Image from "next/image";
 
-export default function ProfileCard() {
-  const profile = {
-    // sample data
-    image: "/default.svg",
-    name: "xyz",
-    role: "Frontend Developer",
-    position: "Mentor",
-    bio: "Passionate about web development and UI design.",
-    domain: "Web Development",
-    expertise: "Frontend Development",
-    github: "https://github.com/xyz",
-    linkedin: "https://linkedin.com/in/xyz",
-  };
+export default function ProfileCard({ user, rank }) {
+  if (!user) return null;
+
+  const isMember = user.role === "MEMBER";
+  const isMentor = user.role === "MENTOR";
+  const isAdmin = user.role === "ADMIN";
+
+  const displayPosition = 
+    isAdmin ? "Admin" : 
+    isMentor ? "Mentor" : 
+    "Member";
+
+  const displayDomain = 
+    isAdmin ? "Infrastructure" : 
+    isMentor ? "Web Development" : 
+    "Software Engineering";
+
+  const displayExpertise = 
+    isAdmin ? "Security & Access" : 
+    isMentor ? "Mentoring & Dev" : 
+    "Full Stack Web";
+
+  const profileImage = user.image && user.image !== "#"
+    ? user.image
+    : `https://api.dicebear.com/7.x/adventurer/svg?seed=${encodeURIComponent(user.name)}`;
+
+  const profileBio = 
+    isAdmin ? "Managing system configurations, user access, and overall dashboard architecture." :
+    isMentor ? "Guiding members, reviewing task submissions, and providing technical architecture insights." :
+    "WebnD developer working on building projects, earning XP, and leveling up development skills.";
+
+  const githubUrl = `https://github.com/${user.name.toLowerCase().replace(/\s+/g, "")}`;
+  const linkedinUrl = `https://linkedin.com/in/${user.name.toLowerCase().replace(/\s+/g, "")}`;
 
   return (
     <div className="bg-[#1A1A1A] border border-[#2A2A2A] rounded-3xl p-4 md:p-6 m-4 md:m-7">
@@ -21,68 +41,55 @@ export default function ProfileCard() {
           <div className="relative p-4 md:p-6">
             <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
               <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
-                <Image
-                  src={profile.image}
+                <img
+                  src={profileImage}
                   alt="Profile"
-                  width={112}
-                  height={112}
                   className="w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-[#F5C518] object-cover"/>
 
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold">
-                    {profile.name}
+                    {user.name}
                   </h2>
 
-                  <p className="text-[#888888] mt-1">
-                    {profile.role}
+                  <p className="text-[#888888] mt-1 text-sm uppercase tracking-wider">
+                    {user.role}
                   </p>
 
                 <div
                   className="flex flex-wrap justify-center sm:justify-start gap-2 mt-4">
                   <span
                     className="px-3 py-1 rounded-full bg-[#F5C518] text-black text-sm font-semibold">
-                    {profile.position}
+                    {displayPosition}
                   </span>
 
                   <span
                     className="px-3 py-1 rounded-full bg-[#111111] border border-[#2A2A2A] text-sm">
-                    {profile.domain}
+                    {displayDomain}
                   </span>
                 </div>
               </div>
               </div>
 
-              <div
-                className="grid grid-cols-2 gap-3 w-full lg:w-auto">
-                <div
-                  className="bg-[#111111] border border-[#2A2A2A] rounded-2xl p-4 text-center">
-                  <p className="text-xs text-[#888888]">
-                    XP
-                  </p>
+              {isMember && (
+                <div className="grid grid-cols-2 gap-3 w-full lg:w-auto">
+                  <div className="bg-[#111111] border border-[#2A2A2A] rounded-2xl p-4 text-center">
+                    <p className="text-xs text-[#888888]">XP</p>
+                    <h3 className="text-xl font-bold text-[#F5C518]">{user.xp}</h3>
+                  </div>
 
-                  <h3 className="text-xl font-bold text-[#F5C518]">
-                    4820
-                  </h3>
+                  <div className="bg-[#111111] border border-[#2A2A2A] rounded-2xl p-4 text-center">
+                    <p className="text-xs text-[#888888]">Rank</p>
+                    <h3 className="text-xl font-bold text-[#F5C518]">{rank}</h3>
+                  </div>
                 </div>
-
-                <div
-                  className="bg-[#111111] border border-[#2A2A2A] rounded-2xl p-4 text-center">
-                  <p className="text-xs text-[#888888]">
-                    Rank
-                  </p>
-
-                  <h3 className="text-xl font-bold text-[#F5C518]">
-                    #4
-                  </h3>
-                </div>
-              </div>
+              )}
           </div>
         </div>
       </div>
 
       <div className="mt-6">
         <p className="text-[#888888] leading-relaxed">
-          {profile.bio}
+          {profileBio}
         </p>
       </div>
 
@@ -94,7 +101,7 @@ export default function ProfileCard() {
           </p>
 
           <p className="font-medium mt-1">
-            {profile.domain}
+            {displayDomain}
           </p>
         </div>
 
@@ -105,31 +112,27 @@ export default function ProfileCard() {
           </p>
 
           <p className="font-medium mt-1">
-            {profile.expertise}
+            {displayExpertise}
           </p>
         </div>
       </div>
 
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {profile.github && (
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noreferrer"
-            className="block text-center bg-[#111111] border border-[#2A2A2A] rounded-xl p-3 hover:border-[#F5C518] transition-all">
-            🐙 Github
-          </a>
-        )}
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="block text-center bg-[#111111] border border-[#2A2A2A] rounded-xl p-3 hover:border-[#F5C518] transition-all">
+          🐙 Github
+        </a>
 
-        {profile.linkedin && (
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className="block text-center bg-[#111111] border border-[#2A2A2A] rounded-xl p-3 hover:border-[#F5C518] transition-all ">
-            💼 LinkedIn
-          </a>
-        )}
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="block text-center bg-[#111111] border border-[#2A2A2A] rounded-xl p-3 hover:border-[#F5C518] transition-all ">
+          💼 LinkedIn
+        </a>
       </div>
     </div>
   );

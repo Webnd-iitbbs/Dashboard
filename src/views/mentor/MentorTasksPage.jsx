@@ -6,28 +6,9 @@ import PageWrapper from "@/components/mentor/layout/PageWrapper";
 import TaskTable from "@/components/mentor/tasks/TaskTable";
 import { useState } from "react"
 
-const tasks = [
-    {
-        id: 1,
-        mentee: "Rick",
-        title: "Simple form",
-        topic: "JavaScript",
-        status: "Submitted",
-        deadline: "12 June 2026",
-        submittedAt: "13 June 2026"
-    },
-    {
-        id: 2,
-        mentee: "Carrie",
-        title: "DOM",
-        topic: "JavaScript",
-        status: "Pending",
-        deadline: "12 June 2026",
-        submittedAt: ""
-    }
-]
 
-const MentorTasksPage = () => {
+
+const MentorTasksPage = ({mentorTasks, mentees}) => {
     const [taskModal, setTaskModal] = useState(false);
     const [compModal, setCompModal] = useState(false)
     return (
@@ -36,9 +17,9 @@ const MentorTasksPage = () => {
                 <button onClick={() => setTaskModal(true)} className="bg-[#F5C518] text-black px-5 py-3 rounded-lg font-semibold">Assign Task</button>
                 <button onClick={() => setCompModal(true)} className="border border-[#F5C518] text-[#F5C518] px-5 py-3 rounded-lg">Create Competition</button>
             </div>
-            <TaskTable tasks={tasks} />
+            <TaskTable tasks={mentorTasks} />
             <div className="lg:hidden space-y-4">
-                {tasks.map((task) => (
+                {mentorTasks.map((task) => (
                     <div key={task.id} className="bg-[#111111] border border-[#2A2A2A] rounded-xl p-5">
                         <h3 className="text-white font-semibold">{task.title}</h3>
                         <p className="text-[#888888] mt-2">{task.mentee}</p>
@@ -48,7 +29,7 @@ const MentorTasksPage = () => {
                     </div>
                 ))}
             </div>
-            <AssignTaskModal open={taskModal} setOpen={setTaskModal} />
+            <AssignTaskModal open={taskModal} setOpen={setTaskModal} mentees={mentees}/>
             <CompetitionModal open={compModal} setOpen={setCompModal} />
         </PageWrapper>
     )

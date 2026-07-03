@@ -5,35 +5,36 @@ import {
   Paperclip,
   Clock3,
   ExternalLink,
-//   Github,
+  //   Github,
 } from "lucide-react";
 
-export default function TaskDesc() {
-  const task = {
-    title: "Member Dashboard Frontend",
-    description:
-      "Design and implement the Member Dashboard UI using Next.js and Tailwind CSS. The dashboard should be responsive, follow the WebnD theme guidelines, and provide an intuitive experience across desktop and mobile devices.",
+export default function TaskDesc({ task }) {
+  // const task = {
+  //   title: "Member Dashboard Frontend",
+  //   description:
+  //     "Design and implement the Member Dashboard UI using Next.js and Tailwind CSS. The dashboard should be responsive, follow the WebnD theme guidelines, and provide an intuitive experience across desktop and mobile devices.",
 
-    techStack: ["React", "Next.js", "Tailwind CSS"],
+  //   techStack: ["React", "Next.js", "Tailwind CSS"],
 
-    deadline: "15 June 2026",
+  //   deadline: "15 June 2026",
 
-    createdAt: "10 June 2026",
+  //   createdAt: "10 June 2026",
 
-    attachments: [
-      {
-        name: "Dashboard Requirements.pdf",
-        url: "#",
-      },
-      {
-        name: "Design References.zip",
-        url: "#",
-      },
-    ],
-  };
+  //   attachments: [
+  //     {
+  //       name: "Dashboard Requirements.pdf",
+  //       url: "#",
+  //     },
+  //     {
+  //       name: "Design References.zip",
+  //       url: "#",
+  //     },
+  //   ],
+  // };
+  console.log(task);
 
   return (
-    <section className="flex h-full flex-col overflow-hidden rounded-2xl border border-[#2A2A2A] bg-[#111111]">
+    <section className="flex w-full h-full flex-col overflow-hidden rounded-2xl border border-[#2A2A2A] bg-[#111111]">
       {/* Header */}
       <div className="border-b border-[#2A2A2A] p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -56,18 +57,18 @@ export default function TaskDesc() {
         <div className="mt-5 flex flex-wrap gap-4">
           <div className="flex items-center gap-2 text-sm text-[#888888]">
             <CalendarDays size={16} />
-            {task.deadline}
+            {task.deadline ? new Date(task.deadline).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : ""}
           </div>
 
           <div className="flex items-center gap-2 text-sm text-[#888888]">
             <Clock3 size={16} />
-            Assigned {task.createdAt}
+            Assigned {task.createdAt ? new Date(task.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : ""}
           </div>
         </div>
 
         {/* Stack */}
         <div className="mt-4 flex flex-wrap gap-2">
-          {task.techStack.map((tech) => (
+          {task.techStack?.trim().split(",").map((tech) => (
             <span
               key={tech}
               className="rounded-full border border-[#F5C518]/30 bg-[#F5C518]/10 px-3 py-1 text-xs text-[#F5C518]"
@@ -100,7 +101,39 @@ export default function TaskDesc() {
           </h2>
 
           <div className="space-y-3">
-            {task.attachments.map((file) => (
+            {task.referenceUrl && (
+              <a
+                href={task.referenceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                  flex items-center justify-between
+                  rounded-xl
+                  border border-[#2A2A2A]
+                  bg-[#0D0D0D]
+                  px-4 py-3
+                  transition-all
+                  hover:border-[#F5C518]/30
+                "
+              >
+                <div className="flex items-center gap-3">
+                  <Paperclip
+                    size={16}
+                    className="text-[#F5C518]"
+                  />
+
+                  <span className="text-sm text-[#F5F5F5]">
+                    Reference Link
+                  </span>
+                </div>
+
+                <ExternalLink
+                  size={15}
+                  className="text-[#888888]"
+                />
+              </a>
+            )}
+            {task.attachments?.map((file) => (
               <a
                 key={file.name}
                 href={file.url}

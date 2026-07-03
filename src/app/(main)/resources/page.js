@@ -2,7 +2,7 @@
 import ResSearch from "@/components/members/resources/ResSearch";
 import ResourceCard from "@/components/members/resources/ResourceCard";
 import ContributionForm from "@/components/members/resources/ContributionForm";
-import { mockResources } from "@/pages/member/mockresouce";
+import { mockResources } from "@/views/member/mockresouce";
 import React, { useState } from "react";
 
 const sources = ["All", "Mentor", "Community", "Friends"];

@@ -1,28 +1,7 @@
 import StatCard from "./StatisticsCard";
 
-export default function StatsGrid() {
-  const stats = [
-    {
-      title: "Total XP",
-      value: "4820",
-      subtitle: "+340 this week",
-    },
-    {
-      title: "Current Rank",
-      value: "#4",
-      subtitle: "Up 2 positions",
-    },
-    {
-      title: "Tasks Completed",
-      value: "15",
-      subtitle: "3 completed this week",
-    },
-    {
-      title: "Competitions Topped",
-      value: "5",
-      subtitle: "Best UI Awards",
-    },
-  ];
+export default function StatsGrid({ stats }) {
+  if (!Array.isArray(stats)) return null;
 
   return (
     <div

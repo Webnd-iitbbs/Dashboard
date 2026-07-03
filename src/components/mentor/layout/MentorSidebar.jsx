@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation"
 
 
 const MentorSidebar = ({links, position}) => {
-    console.log(links);
     const pathName = usePathname();
     return (
         <div className="lg:h-screen flex flex-col justify-between">
